@@ -7,7 +7,7 @@ ScalarConverter::ScalarConverter(const ScalarConverter &) {}
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &) { return *this; }
 ScalarConverter::~ScalarConverter() {}
 
-char convertEscapeSequence(const std::string &literal) {
+char	convertEscapeSequence(const std::string & literal) {
 	struct EscapeSequence {
 		const char *sequence;
 		char value;
@@ -22,7 +22,6 @@ char convertEscapeSequence(const std::string &literal) {
 		{"\\b", '\b'},
 		{"\\0", '\0'}
 	};
-
 	for (int i = 0; i < 7; ++i) {
 		if (literal == escapeSequences[i].sequence) {
 			return escapeSequences[i].value;
@@ -31,7 +30,7 @@ char convertEscapeSequence(const std::string &literal) {
 	return '\0';
 }
 
-void ScalarConverter::convert(const std::string &literal) {
+void	ScalarConverter::convert(const std::string &literal) {
 	if (literal.empty()) {
 		std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible\n";
 		return;
@@ -98,11 +97,11 @@ bool ScalarConverter::isDouble(const std::string &literal) {
 	std::string afterDot = literal.substr(dotPos + 1);
 
 	return !beforeDot.empty() && !afterDot.empty() &&
-		   beforeDot.find_first_not_of("0123456789") == std::string::npos &&
-		   afterDot.find_first_not_of("0123456789") == std::string::npos;
+			beforeDot.find_first_not_of("0123456789") == std::string::npos &&
+			afterDot.find_first_not_of("0123456789") == std::string::npos;
 }
 
-bool ScalarConverter::isInfinite(const std::string &literal) {
+bool	ScalarConverter::isInfinite(const std::string &literal) {
 	return literal == "-inf" || literal == "+inf" || literal == "nan" ||
 		   literal == "-inff" || literal == "+inff" || literal == "nanf";
 }
@@ -116,7 +115,7 @@ void ScalarConverter::convertFromChar(const std::string &literal) {
 	std::cout << "double: " << static_cast<double>(c) << std::endl;
 }
 
-void ScalarConverter::convertToNumber(const std::string &literal, long double number) {
+void	ScalarConverter::convertToNumber(const std::string &literal, long double number) {
 	(void)literal;
 
 	if (std::isnan(number)) {
@@ -147,7 +146,7 @@ void ScalarConverter::convertToNumber(const std::string &literal, long double nu
 	std::cout << "double: " << static_cast<double>(number) << std::endl;
 }
 
-void ScalarConverter::convertToChar(char c) {
+void	ScalarConverter::convertToChar(char c) {
 	if (std::isprint(c)) {
 		std::cout << "char: '" << c << "'" << std::endl;
 	} else {
@@ -155,7 +154,7 @@ void ScalarConverter::convertToChar(char c) {
 	}
 }
 
-void ScalarConverter::convertFromInfinite(const std::string &literal) {
+void	ScalarConverter::convertFromInfinite(const std::string &literal) {
 	std::cout << "char: impossible\nint: impossible\n";
 	if (literal.find("nan") != std::string::npos) {
 		std::cout << "float: nanf\n";

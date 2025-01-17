@@ -1,17 +1,15 @@
 #include "./inc/Identify.hpp"
-#include <ctime>  // For seeding rand()
 
 int main() {
-	std::srand(std::time(NULL));  // Seed the random number generator
 
 	for (int i = 0; i < 5; ++i) {
-		Base* randomBase = generate();  // Generate random instance of A, B, or C
+		Base* randomBase = generate();
 		std::cout << "Test " << i + 1 << ":\n";
 		std::cout << "Pointer identify: ";
-		identify(randomBase);  // Identify type using pointer
+		identify(randomBase);
 		std::cout << "Reference identify: ";
-		identify(*randomBase);  // Identify type using reference
-		delete randomBase;  // Clean up memory
+		identify(*randomBase);
+		delete randomBase;
 		std::cout << "----------------------------------\n";
 	}
 
